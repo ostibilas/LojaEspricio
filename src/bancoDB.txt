@@ -1,0 +1,11 @@
+-- CREATE DATA BASE LojaEspricio;
+USE LojaEspricio;
+CREATE TABLE Produtos(
+    idProduto UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+    nomeProduto VARCHAR(100) NOTNULL,
+    precoProduto DECIMAL(10,2) NOTNULL
+
+);
+
+MVC
+model view CONTROLER
