@@ -8,6 +8,6 @@ app.use('/', produtoRoutes);
 
 
 app.listen(PORT, () => {
-    console.log(`Serviddor rodando em http://localhost:${PORT}`);
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
 //teste
