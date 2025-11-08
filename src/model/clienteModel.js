@@ -1,30 +1,30 @@
 const {sql,getConnection} = require("../config/db");
 
-const produtoModel = {
+const clienteModel = {
 /**
- * Busca todos os produtos no banco de dados
+ * Busca todos os Clientes no banco de dados
  * @async
  * @function buscarTodos
- * @returns {Promise<Array>} Retorna uma lista com todos os produtos
+ * @returns {Promise<Array>} Retorna uma lista com todos os Clientes
  * @throws Mostra os erros no console e propaga ele caso a busca falhe
  */
-    buscarUm: async (idProduto) => { 
+    buscarUm: async (idCliente) => { 
 
         try {
 
             const pool = await getConnection();
-            const querySQL = `SELECT * FROM PRODUTOS 
-                             WHERE idProduto = @idProduto`;
+            const querySQL = `SELECT * FROM CLIENTES 
+                             WHERE idCliente = @idCliente`;
 
            const result = await pool.request()
-            .input("idProduto", sql.UniqueIdentifier, idProduto)
+            .input("idCliente", sql.UniqueIdentifier, idCliente)
             .query(querySQL);
 
             return result.recordset;
             
         } catch (error) {
 
-            console.error("Erro ao buscar produtos:",error);
+            console.error("Erro ao buscar Clientes:",error);
             throw error // reverberar o erro para funcao que 0 chamar.
 
             
@@ -36,14 +36,14 @@ const produtoModel = {
         try {
 
             const pool = await getConnection();
-            const querySQL = 'SELECT * FROM PRODUTOS';
+            const querySQL = 'SELECT * FROM CLIENTES';
             const result = await pool.request().query(querySQL);
 
             return result.recordset;
             
         } catch (error) {
 
-            console.error("Erro ao buscar produtos:",error);
+            console.error("Erro ao buscar Clientes:",error);
             throw error // reverberar o erro para funcao que 0 chamar.
 
             
@@ -52,32 +52,32 @@ const produtoModel = {
     },
 
     /**
-     * Insire um produto no banco de dados
+     * Insire um Cliente no banco de dados
      * @async
-     * @function inserirProduto
-     * @param {string} nomeProduto - nome do produto
-     * @param {number} precoProduto - preço do produto
+     * @function inserirCliente
+     * @param {string} nomeCliente - nome do Cliente
+     * @param {number} cpfCliente - cpf do Cliente
      * @returns {Promise<void>} não retorna nada, apenas executa a inserção
      * @throws Mostra no console e propaga o erro
      */
-    inserirProduto: async (nomeProduto, precoProduto) =>{
+    inserirCliente: async (nomeCliente, cpfCliente) =>{
         try {
             const pool = await getConnection();
             const querySQL = `
-                INSERT INTO Produtos (nomeProduto, precoProduto)
-                VALUES(@nomeProduto,@precoProduto)
+                INSERT INTO Clientes (nomeCliente, cpfCliente)
+                VALUES(@nomeCliente,@cpfCliente)
             `
             await pool.request()
-            .input("nomeProduto", sql.VarChar(100), nomeProduto)
-            .input("precoProduto", sql.Decimal(10,2), precoProduto)
+            .input("nomeCliente", sql.VarChar(100), nomeCliente)
+            .input("cpfCliente", sql.char(11), cpfCliente)
                 .query(querySQL);
 
         } catch (error) {
-                   console.error("Erro ao inserir produtos:",error);
+                   console.error("Erro ao inserir Clientes:",error);
             throw error // reverberar o erro para funcao que 0 chamar.
         }
     }
 
 }
 
-module.exports = {produtoModel};
+module.exports = {clienteModel};

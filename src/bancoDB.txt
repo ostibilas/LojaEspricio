@@ -7,5 +7,14 @@ CREATE TABLE Produtos(
 
 );
 
+==================================================================
+
+USE LojaEspricio;
+CREATE TABLE Clientes(
+    idCliente UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+    nomeCliente VARCHAR(100) NOTNULL,
+    cpfCliente CHAR(11) NOTNULL UNIQUE
+);
+
 MVC
 model view CONTROLER
