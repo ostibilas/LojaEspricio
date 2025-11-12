@@ -69,8 +69,8 @@ const clienteModel = {
             `
             await pool.request()
             .input("nomeCliente", sql.VarChar(100), nomeCliente)
-            .input("cpfCliente", sql.char(11), cpfCliente)
-                .query(querySQL);
+            .input("cpfCliente", sql.Char(11), cpfCliente)
+            .query(querySQL);
 
         } catch (error) {
                    console.error("Erro ao inserir Clientes:",error);

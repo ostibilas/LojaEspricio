@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const {produtoRoutes} = require("../src/routes/produtoRoutes");
-const {clienteRoutes} = require("../src/routes/clienteRoutes");
+const {produtoRoutes} = require("./src/routes/produtoRoutes");
+const {clienteRoutes} = require("./src/routes/clienteRoutes");
 const PORT = 8081;
 
 app.use(express.json());// configurando o midway para aceitar o json
