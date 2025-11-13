@@ -51,7 +51,15 @@ const clienteController = {
 
             }
 
+            const cliente = await clienteModel.verficarCpf(cpfCliente);
+
+            if (cliente.length > 0) {
+                return res.status(409).json({ error: "Cliente com CPF já cadastrado" });
+
+            }
+
             await clienteModel.inserirCliente(nomeCliente, cpfCliente);
+            
 
             res.status(201).json({ message: "Cliente cadastrado com sucesso!" });
 

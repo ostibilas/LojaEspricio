@@ -1,14 +1,14 @@
-const {sql,getConnection} = require("../config/db");
+const { sql, getConnection } = require("../config/db");
 
 const clienteModel = {
-/**
- * Busca todos os Clientes no banco de dados
- * @async
- * @function buscarTodos
- * @returns {Promise<Array>} Retorna uma lista com todos os Clientes
- * @throws Mostra os erros no console e propaga ele caso a busca falhe
- */
-    buscarUm: async (idCliente) => { 
+    /**
+     * Busca todos os Clientes no banco de dados
+     * @async
+     * @function buscarTodos
+     * @returns {Promise<Array>} Retorna uma lista com todos os Clientes
+     * @throws Mostra os erros no console e propaga ele caso a busca falhe
+     */
+    buscarUm: async (idCliente) => {
 
         try {
 
@@ -16,20 +16,20 @@ const clienteModel = {
             const querySQL = `SELECT * FROM CLIENTES 
                              WHERE idCliente = @idCliente`;
 
-           const result = await pool.request()
-            .input("idCliente", sql.UniqueIdentifier, idCliente)
-            .query(querySQL);
+            const result = await pool.request()
+                .input("idCliente", sql.UniqueIdentifier, idCliente)
+                .query(querySQL);
 
             return result.recordset;
-            
+
         } catch (error) {
 
-            console.error("Erro ao buscar Clientes:",error);
+            console.error("Erro ao buscar Clientes:", error);
             throw error // reverberar o erro para funcao que 0 chamar.
 
-            
+
         }
-        
+
     },
     buscarTodos: async () => {
 
@@ -40,15 +40,15 @@ const clienteModel = {
             const result = await pool.request().query(querySQL);
 
             return result.recordset;
-            
+
         } catch (error) {
 
-            console.error("Erro ao buscar Clientes:",error);
+            console.error("Erro ao buscar Clientes:", error);
             throw error // reverberar o erro para funcao que 0 chamar.
 
-            
+
         }
-        
+
     },
 
     /**
@@ -60,7 +60,7 @@ const clienteModel = {
      * @returns {Promise<void>} não retorna nada, apenas executa a inserção
      * @throws Mostra no console e propaga o erro
      */
-    inserirCliente: async (nomeCliente, cpfCliente) =>{
+    inserirCliente: async (nomeCliente, cpfCliente) => {
         try {
             const pool = await getConnection();
             const querySQL = `
@@ -68,16 +68,35 @@ const clienteModel = {
                 VALUES(@nomeCliente,@cpfCliente)
             `
             await pool.request()
-            .input("nomeCliente", sql.VarChar(100), nomeCliente)
-            .input("cpfCliente", sql.Char(11), cpfCliente)
-            .query(querySQL);
+                .input("nomeCliente", sql.VarChar(100), nomeCliente)
+                .input("cpfCliente", sql.Char(11), cpfCliente)
+                .query(querySQL);
 
         } catch (error) {
-                   console.error("Erro ao inserir Clientes:",error);
+            console.error("Erro ao inserir Clientes:", error);
+            throw error // reverberar o erro para funcao que 0 chamar.
+        }
+    },
+
+    verficarCpf: async (cpfCliente) => {
+        try {
+            const pool = await getConnection();
+            const querySQL = `
+            SELECT * FROM Clientes 
+            WHERE cpfCliente = @cpfCliente
+            `
+            const result = await pool.request()
+                .input("cpfCliente", sql.Char(11), cpfCliente)
+                .query(querySQL);
+
+            return result.recordset;
+
+        } catch (error) {
+            console.error("Erro ao Buscar CPF:", error);
             throw error // reverberar o erro para funcao que 0 chamar.
         }
     }
 
 }
 
-module.exports = {clienteModel};
+module.exports = { clienteModel };
