@@ -76,7 +76,39 @@ const produtoModel = {
                    console.error("Erro ao inserir produtos:",error);
             throw error // reverberar o erro para funcao que 0 chamar.
         }
+    },
+    /**
+     * Atualiza um produto no banco de dados
+     * @async
+     * @param {string} idProduto id universal de produto
+     * @param {string} nomeProduto nome do produto a ser atualizado
+     * @param {number} precoProduto preço do produto a ser atualizado
+     * @returns {Promise<void>} sem retorno, apenas executa atualização
+     * @throws Mostra no console o erro caso a atualização falhe
+     */
+    atualizarProduto: async (idProduto,nomeProduto,precoProduto) =>{
+        try {
+            const pool = await getConnection();
+            const querySQL = `UPDATE Produtos 
+                              SET nomeProduto = @nomeProduto ,
+                              precoProduto = @precoProduto
+                              WHERE idProduto = @idProduto
+                            `
+            await pool.request()
+            .input("idProduto", sql.UniqueIdentifier, idProduto)
+            .input("nomeProduto", sql.VarChar(100), nomeProduto)
+            .input("precoProduto", sql.Decimal(10,2), precoProduto)
+            .query(querySQL);
+            
+        } catch (error) {
+            
+            console.error("Erro ao Atualizar produto:",error);
+            throw error // reverberar o erro para funcao que 0 chamar.
+            
+        }
+
     }
+
 
 }
 

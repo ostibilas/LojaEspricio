@@ -13,10 +13,10 @@ const produtoController = {
      */
     listarProdutos: async (req, res) => {
         try {
-            const {idProduto} = req.query;
-            if(idProduto){
-                if(idProduto.length != 36){
-                    return res.status(400).json({erro: "Id do produto invalido"});
+            const { idProduto } = req.query;
+            if (idProduto) {
+                if (idProduto.length != 36) {
+                    return res.status(400).json({ erro: "Id do produto invalido" });
                 }
                 const produto = await produtoModel.buscarUm(idProduto);
                 return res.status(200).json(produto);
@@ -46,7 +46,7 @@ const produtoController = {
 
             let { nomeProduto, precoProduto } = req.body;
 
-            if ( nomeProduto == undefined || precoProduto == undefined  || nomeProduto.trim() == "" || isNaN(precoProduto) ) {
+            if (nomeProduto == undefined || precoProduto == undefined || nomeProduto.trim() == "" || isNaN(precoProduto)) {
                 return res.status(400).json({ error: "Campos Obrigatorios não preencidos" });
 
             }
@@ -61,10 +61,39 @@ const produtoController = {
             res.status(500).json({ error: 'Erro ao Cadastrar produtos' });
 
         }
+    },
+
+    atualizarProduto: async (req, res) => {
+        try {
+            const { idProduto } = req.params;
+            const { nomeProduto, precoProduto } = req.body;
+
+            if (idProduto.length != 36) {
+                return res.status(400).json({ error: 'id do produto invalido' });
+            }
+
+            const produto = await produtoModel.buscarUm(idProduto);
+
+            if (!produto || produto.length !== 1) {
+                return res.status(404).json({ error: "Produto não encontrado" })
+            }
+
+            const produtoAtual = produto[0];
+            const nomeAtualizado = nomeProduto ?? produtoAtual.nomeProduto;
+            const precoAtualizado = precoProduto ?? produtoAtual.precoProduto;
+
+            produtoModel.atualizarProduto(idProduto, nomeAtualizado, precoAtualizado)
+
+            res.status(200).json({ mensagem: "Produto Atualizado com sucesso!" });
+
+        } catch (error) {
+
+            console.log('erro ao listar produtos', error);
+            res.status(500).json({ error: 'Erro ao Atualizar produtos' });
+
+        }
+
     }
-
-
-
 
 }
 

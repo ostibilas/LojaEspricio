@@ -4,6 +4,7 @@ const { produtoController } = require("../controllers/produtoController");
 
 router.get("/produtos", produtoController.listarProdutos);
 router.post("/produtos", produtoController.criarProduto);
+router.put("/produtos/:idProduto", produtoController.atualizarProduto);
 
 module.exports = {produtoRoutes: router};
 
