@@ -1,0 +1,207 @@
+type: collection.insomnia.rest/5.0
+name: Scratch Pad
+meta:
+  id: wrk_scratchpad
+  created: 1759969988996
+  modified: 1759969988996
+  description: ""
+collection:
+  - name: Produtos
+    meta:
+      id: fld_be206ac3364e4a6e982b795e32375c26
+      created: 1762466958450
+      modified: 1762466958450
+      sortKey: -1762466958450
+      description: ""
+    children:
+      - url: http://localhost:8081/produtos
+        name: Criar Produto
+        meta:
+          id: req_a5917246854343c580f85d114fdd3b9e
+          created: 1762466981737
+          modified: 1762554574554
+          isPrivate: false
+          description: ""
+          sortKey: -1762466981737
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nomeProduto": "MegaDrive Show do Milhão",
+            	"precoProduto": 299.0
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/produtos/
+        name: Listar Produtos
+        meta:
+          id: req_0b497150f337449c8888a021126ba518
+          created: 1762474568666
+          modified: 1763080121344
+          isPrivate: false
+          description: ""
+          sortKey: -1762466981837
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        parameters:
+          - id: pair_4d89dbf5cdc845129db9791ec713b067
+            name: ""
+            value: ""
+            description: ""
+            disabled: false
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/produtos/272A0377-10B3-4D87-834F-601A6F9875DB
+        name: Atualizar Produto
+        meta:
+          id: req_13c451954b284445b8d97482108af1b7
+          created: 1763079933245
+          modified: 1763158202347
+          isPrivate: false
+          description: ""
+          sortKey: -1763079933245
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	
+            	"precoProduto": 19.5
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/produtos/272A0377-10B3-4D87-834F-601A6F9875DB
+        name: Deletar Produto
+        meta:
+          id: req_a2da58bc73da4de7a4f0976068485568
+          created: 1763160305405
+          modified: 1763160371345
+          isPrivate: false
+          description: ""
+          sortKey: -1763079933345
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Clientes
+    meta:
+      id: fld_7da05d5b1ef643f4bb444369f662ccb7
+      created: 1762561680218
+      modified: 1762561680218
+      sortKey: -1762561680218
+      description: ""
+    children:
+      - url: http://localhost:8081/clientes
+        name: Criar Cliente
+        meta:
+          id: req_43ff5adc6b6544ba86988f2357c5afe5
+          created: 1762561694582
+          modified: 1762994773010
+          isPrivate: false
+          description: ""
+          sortKey: -1762561694582
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            		"nomeCliente": "Gustavo",
+            		"cpfCliente": "41053903848"
+            	}
+        parameters:
+          - id: pair_9d5225cedf034fd488205ffd834c2634
+            name: ""
+            value: ""
+            description: ""
+            disabled: false
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/clientes
+        name: Listar Clientes
+        meta:
+          id: req_f530dc33166249ff89ad3f8f21ebeb13
+          created: 1762562128924
+          modified: 1762991947576
+          isPrivate: false
+          description: ""
+          sortKey: -1762561694682
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1759970028208
+    modified: 1759970028208
+environments:
+  name: Base Environment
+  meta:
+    id: env_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1759970028175
+    modified: 1759970028175
+    isPrivate: false

@@ -1,9 +1,9 @@
--- CREATE DATA BASE LojaEspricio;
+-- CREATE DATABASE LojaEspricio;
 USE LojaEspricio;
 CREATE TABLE Produtos(
     idProduto UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-    nomeProduto VARCHAR(100) NOTNULL,
-    precoProduto DECIMAL(10,2) NOTNULL
+    nomeProduto VARCHAR(100) NOT NULL,
+    precoProduto DECIMAL(10,2) NOT NULL
 
 );
 
@@ -12,8 +12,8 @@ CREATE TABLE Produtos(
 USE LojaEspricio;
 CREATE TABLE Clientes(
     idCliente UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-    nomeCliente VARCHAR(100) NOTNULL,
-    cpfCliente CHAR(11) NOTNULL UNIQUE
+    nomeCliente VARCHAR(100) NOT NULL,
+    cpfCliente CHAR(11) NOT NULL UNIQUE
 );
 
 MVC

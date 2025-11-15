@@ -93,6 +93,33 @@ const produtoController = {
 
         }
 
+    },
+
+    deletarProduto: async (req,res) => {
+         
+
+        try {
+             const { idProduto } = req.params;
+
+             if (idProduto.length != 36) {
+                return res.status(400).json({ error: 'id do produto invalido' });
+            }
+
+             const produto = await produtoModel.buscarUm(idProduto);
+
+            if (!produto || produto.length !== 1) {
+                return res.status(404).json({ error: "Produto não encontrado" })
+            }
+
+            produtoModel.deletarProduto(idProduto);
+
+            res.status(200).json({ mensagem: "Produto Deletado com sucesso!" });
+            
+            
+        } catch (error) {
+             console.log('erro ao DELETAR Produto', error);
+            res.status(500).json({ error: 'Erro ao DELETAR produtos' });
+        }
     }
 
 }

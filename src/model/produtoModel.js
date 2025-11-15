@@ -6,9 +6,9 @@ const produtoModel = {
  * @async
  * @function buscarTodos
  * @returns {Promise<Array>} Retorna uma lista com todos os produtos
- * @throws Mostra os erros no console e propaga ele caso a busca falhe
+ * @throws  Mostra os erros no console e propaga ele caso a busca falhe
  */
-    buscarUm: async (idProduto) => { 
+   buscarUm: async (idProduto) => { 
 
         try {
 
@@ -103,6 +103,28 @@ const produtoModel = {
         } catch (error) {
             
             console.error("Erro ao Atualizar produto:",error);
+            throw error // reverberar o erro para funcao que 0 chamar.
+            
+        }
+
+    },
+
+    deletarProduto: async (idProduto) =>{
+        try {
+            const pool = await getConnection();
+            const querySQL = ` 
+            DELETE FROM Produtos
+            WHERE idProduto = @idProduto         
+            `;
+
+            await pool.request()
+                .input('idProduto', sql.UniqueIdentifier,idProduto)
+                .query(querySQL);
+
+            
+        } catch (error) {
+
+            console.error("Erro ao DELETAR o produto:",error);
             throw error // reverberar o erro para funcao que 0 chamar.
             
         }
