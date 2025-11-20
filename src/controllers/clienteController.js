@@ -13,10 +13,10 @@ const clienteController = {
      */
     listarClientes: async (req, res) => {
         try {
-            const {idCliente} = req.query;
-            if(idCliente){
-                if(idCliente.length != 36){
-                    return res.status(400).json({erro: "Id do Cliente invalido"});
+            const { idCliente } = req.query;
+            if (idCliente) {
+                if (idCliente.length != 36) {
+                    return res.status(400).json({ erro: "Id do Cliente invalido" });
                 }
                 const cliente = await clienteModel.buscarUm(idCliente);
                 return res.status(200).json(idCliente);
@@ -26,7 +26,7 @@ const clienteController = {
 
         } catch (error) {
             console.log('erro ao listar clientes', error);
-            res.status(500).json({error: 'Erro ao listar clientes'});
+            res.status(500).json({ error: 'Erro ao listar clientes' });
 
         }
     },
@@ -46,7 +46,7 @@ const clienteController = {
 
             let { nomeCliente, cpfCliente } = req.body;
 
-            if ( nomeCliente == undefined || cpfCliente == undefined || cpfCliente.length != 11 ) {
+            if (nomeCliente == undefined || cpfCliente == undefined || cpfCliente.length != 11) {
                 return res.status(400).json({ error: "Campos Obrigatorios não preencidos" });
 
             }
@@ -59,7 +59,7 @@ const clienteController = {
             }
 
             await clienteModel.inserirCliente(nomeCliente, cpfCliente);
-            
+
 
             res.status(201).json({ message: "Cliente cadastrado com sucesso!" });
 
@@ -69,7 +69,71 @@ const clienteController = {
             res.status(500).json({ error: 'Erro ao Cadastrar Clientes' });
 
         }
+    },
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     * @returns 
+     */
+    atualizarCliente: async (req, res) => {
+        try {
+            const { idCliente } = req.params;
+            const { nomeCliente, cpfCliente } = req.body;
+
+            if (idCliente.length != 36) {
+                return res.status(400).json({ error: 'id do Cliente invalido' });
+            }
+
+            const cliente = await clienteModel.buscarUm(idCliente);
+
+            if (!cliente || cliente.length !== 1) {
+                return res.status(404).json({ error: "Cliente não encontrado" })
+            }
+
+            const clienteAtual = cliente[0];
+            const nomeAtualizado = nomeCliente ?? clienteAtual.nomeCliente;
+            const cpfAtualizado = cpfCliente ?? clienteAtual.cpfCliente;
+
+            clienteModel.atualizarCliente(clienteAtual, nomeAtualizado, cpfAtualizado);
+
+            res.status(200).json({ mensagem: "Cliente Atualizado com sucesso!" });
+
+        } catch (error) {
+
+            console.log('erro ao listar produtos', error);
+            res.status(500).json({ error: 'Erro ao Atualizar produtos' });
+
+        }
+
+    },
+    deletarCliente: async (req, res) => {
+
+
+        try {
+            const { idCliente } = req.params;
+
+            if (idCliente.length != 36) {
+                return res.status(400).json({ error: 'id do Cliente invalido' });
+            }
+
+            const cliente = await clienteModel.buscarUm(idCliente);
+
+            if (!cliente || cliente.length !== 1) {
+                return res.status(404).json({ error: "cliente não encontrado" })
+            }
+
+            clienteModel.deletarCliente(idCliente);
+
+            res.status(200).json({ mensagem: "Cliente Deletado com sucesso!" });
+
+
+        } catch (error) {
+            console.log('erro ao DELETAR Cliente', error);
+            res.status(500).json({ error: 'Erro ao DELETAR Cliente' });
+        }
     }
+
 
 
 

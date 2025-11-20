@@ -77,6 +77,49 @@ const clienteModel = {
             throw error // reverberar o erro para funcao que 0 chamar.
         }
     },
+    deletarCliente: async (idCliente) => {
+        try {
+            const pool = await getConnection();
+            const querySQL = ` 
+            DELETE FROM Clientes
+            WHERE idCliente = @idCliente         
+            `;
+
+            await pool.request()
+                .input('idCliente', sql.UniqueIdentifier, idCliente)
+                .query(querySQL);
+
+
+        } catch (error) {
+
+            console.error("Erro ao DELETAR o cliente:", error);
+            throw error // reverberar o erro para funcao que 0 chamar.
+
+        }
+
+    },
+    atualizarCliente: async (idCliente,nomeCliente,cpfCliente) =>{ 
+        try {
+            const pool = await getConnection();
+            const querySQL = `UPDATE Clientes 
+                              SET nomeCliente = @nomeCliente ,
+                              cpfCliente = @cpfCliente
+                              WHERE idCliente = @idCliente
+                            `
+            await pool.request()
+            .input("idCliente", sql.UniqueIdentifier, idCliente)
+            .input("nomeCliente", sql.VarChar(100), nomeCliente)
+            .input("cpfCliente", sql.Char(11), cpfCliente)
+            .query(querySQL);
+            
+        } catch (error) {
+            
+            console.error("Erro ao Atualizar Cliente:",error);
+            throw error // reverberar o erro para funcao que 0 chamar.
+            
+        }
+
+    },
 
     verficarCpf: async (cpfCliente) => {
         try {
