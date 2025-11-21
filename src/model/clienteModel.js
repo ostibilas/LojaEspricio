@@ -13,8 +13,9 @@ const clienteModel = {
         try {
 
             const pool = await getConnection();
-            const querySQL = `SELECT * FROM CLIENTES 
-                             WHERE idCliente = @idCliente`;
+            const querySQL = `SELECT * FROM Clientes 
+                             WHERE idCliente = @idCliente
+                             `
 
             const result = await pool.request()
                 .input("idCliente", sql.UniqueIdentifier, idCliente)
@@ -36,7 +37,7 @@ const clienteModel = {
         try {
 
             const pool = await getConnection();
-            const querySQL = 'SELECT * FROM CLIENTES';
+            const querySQL = 'SELECT * FROM Clientes';
             const result = await pool.request().query(querySQL);
 
             return result.recordset;
@@ -102,7 +103,7 @@ const clienteModel = {
         try {
             const pool = await getConnection();
             const querySQL = `UPDATE Clientes 
-                              SET nomeCliente = @nomeCliente ,
+                              SET nomeCliente = @nomeCliente,
                               cpfCliente = @cpfCliente
                               WHERE idCliente = @idCliente
                             `
@@ -114,7 +115,7 @@ const clienteModel = {
             
         } catch (error) {
             
-            console.error("Erro ao Atualizar Cliente:",error);
+            console.error("Erro ao Atualizar Cliente MODEL:",error);
             throw error // reverberar o erro para funcao que 0 chamar.
             
         }

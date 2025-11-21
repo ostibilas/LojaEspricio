@@ -19,7 +19,7 @@ const clienteController = {
                     return res.status(400).json({ erro: "Id do Cliente invalido" });
                 }
                 const cliente = await clienteModel.buscarUm(idCliente);
-                return res.status(200).json(idCliente);
+                return res.status(200).json(cliente);
             }
             const clientes = await clienteModel.buscarTodos();
             res.status(200).json(clientes);
@@ -67,6 +67,8 @@ const clienteController = {
         } catch (error) {
             console.log('erro ao listar Clientes', error);
             res.status(500).json({ error: 'Erro ao Cadastrar Clientes' });
+            res.status(500).json
+            
 
         }
     },
@@ -81,7 +83,7 @@ const clienteController = {
             const { idCliente } = req.params;
             const { nomeCliente, cpfCliente } = req.body;
 
-            if (idCliente.length != 36) {
+            if (idCliente.length !== 36) { 
                 return res.status(400).json({ error: 'id do Cliente invalido' });
             }
 
@@ -95,14 +97,14 @@ const clienteController = {
             const nomeAtualizado = nomeCliente ?? clienteAtual.nomeCliente;
             const cpfAtualizado = cpfCliente ?? clienteAtual.cpfCliente;
 
-            clienteModel.atualizarCliente(clienteAtual, nomeAtualizado, cpfAtualizado);
+            await clienteModel.atualizarCliente(idCliente, nomeAtualizado, cpfAtualizado);
 
             res.status(200).json({ mensagem: "Cliente Atualizado com sucesso!" });
 
         } catch (error) {
 
-            console.log('erro ao listar produtos', error);
-            res.status(500).json({ error: 'Erro ao Atualizar produtos' });
+            console.log('erro ao listar Clientes', error);
+            res.status(500).json({ error: 'Erro ao Atualizar controller Clientes' });
 
         }
 

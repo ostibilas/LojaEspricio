@@ -82,7 +82,7 @@ const produtoController = {
             const nomeAtualizado = nomeProduto ?? produtoAtual.nomeProduto;
             const precoAtualizado = precoProduto ?? produtoAtual.precoProduto;
 
-            produtoModel.atualizarProduto(idProduto, nomeAtualizado, precoAtualizado)
+            produtoModel.atualizarProduto(idProduto, nomeAtualizado, precoAtualizado);
 
             res.status(200).json({ mensagem: "Produto Atualizado com sucesso!" });
 
