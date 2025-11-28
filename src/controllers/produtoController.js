@@ -9,9 +9,9 @@ const produtoController = {
      * @param {object} res Objeto da resposta (recebido por http)
      * @returns {Promise<void>} retorna com a lista de produtos
      * @throws Mostra no console e retorna erro 500 se ocorrer falha ao buscar os produtos
-     *
+     * 
      */
-    listarProdutos: async (req, res) => {
+    listarProdutos: async (req, res) => { 
         try {
             const { idProduto } = req.query;
             if (idProduto) {
