@@ -1,4 +1,5 @@
 const { clienteModel } = require("../model/clienteModel");
+const bcrypt = require("bcrypt");
 
 const clienteController = {
     /**
@@ -44,21 +45,31 @@ const clienteController = {
     criarCliente: async (req, res) => {
         try {
 
-            let { nomeCliente, cpfCliente } = req.body;
+            let { nomeCliente, cpfCliente,emailCliente,senhaCliente } = req.body;
 
             if (nomeCliente == undefined || cpfCliente == undefined || cpfCliente.length != 11) {
                 return res.status(400).json({ error: "Campos Obrigatorios não preencidos" });
 
             }
-
+            
             const cliente = await clienteModel.verficarCpf(cpfCliente);
 
             if (cliente.length > 0) {
                 return res.status(409).json({ error: "Cliente com CPF já cadastrado" });
 
             }
-
-            await clienteModel.inserirCliente(nomeCliente, cpfCliente);
+              if (emailCliente.includes("@")) {
+            const saltRounds = 10;
+            
+            senhaCliente = bcrypt.hashSync(senhaCliente, saltRounds); // criptografando senha
+            
+            await clienteModel.inserirCliente(nomeCliente, cpfCliente,emailCliente,senhaCliente);
+                
+            }else{
+                 return res.status(409).json({ error: "Digite email valido" });
+            }
+            
+            
 
 
             res.status(201).json({ message: "Cliente cadastrado com sucesso!" });

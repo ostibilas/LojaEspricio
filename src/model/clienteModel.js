@@ -61,16 +61,18 @@ const clienteModel = {
      * @returns {Promise<void>} não retorna nada, apenas executa a inserção
      * @throws Mostra no console e propaga o erro
      */
-    inserirCliente: async (nomeCliente, cpfCliente) => {
+    inserirCliente: async (nomeCliente, cpfCliente,emailCliente,senhaCliente) => {
         try {
             const pool = await getConnection();
             const querySQL = `
-                INSERT INTO Clientes (nomeCliente, cpfCliente)
-                VALUES(@nomeCliente,@cpfCliente)
+                INSERT INTO Clientes (nomeCliente, cpfCliente , emailCliente, senhaCliente)
+                VALUES(@nomeCliente,@cpfCliente,@emailCliente, @senhaCliente)
             `
             await pool.request()
                 .input("nomeCliente", sql.VarChar(100), nomeCliente)
                 .input("cpfCliente", sql.Char(11), cpfCliente)
+                .input("emailCliente", sql.VarChar(200), emailCliente)
+                .input("senhaCliente", sql.VarChar(255), senhaCliente)
                 .query(querySQL);
 
         } catch (error) {

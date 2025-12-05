@@ -7,7 +7,7 @@ CREATE TABLE Produtos(
 
 );
 
-==================================================================
+=======================================================================
 
 USE LojaEspricio;
 CREATE TABLE Clientes(
@@ -16,5 +16,16 @@ CREATE TABLE Clientes(
     cpfCliente CHAR(11) NOT NULL UNIQUE
 );
 
-MVC
-model view CONTROLER
+=================================================================/04/12/2025
+
+USE LojaEspricio;
+
+DELETE FROM Clientes;
+
+ALTER TABLE Clientes
+ADD emailCliente VARCHAR(200) NOT NULL;
+
+ALTER TABLE Clientes
+ADD senhaCliente VARCHAR(255) NOT NULL;
+
+
