@@ -2,16 +2,17 @@ const sql = require("mssql");
 
 const config = {
 
-    user: "sa",
-    password: "123456789",
-    server: "localhost",
-    database: "LojaEspricio",
+    user: process.env.USER_DB,
+    password: process.env.PASSWORD_DB,
+    server: process.env.SERVER_DB,
+    database: process.env.NAME_DB,
     options: {
         encrypt: true,
         trustServerCertificate: true
     }
 
 };
+
 /** 
  * cria e retorna uma conexao com o  banco de dados SQL SERVER
  * @async
@@ -21,33 +22,33 @@ const config = {
 */
 async function getConnection() {
 
-     try {
+    try {
         const pool = await sql.connect(config);
 
 
         return pool;
 
-        }
-        
-     catch (error) {
-        
-        console.error(`erro na conexao SQL SERVER`,error);
-        
     }
- };
+
+    catch (error) {
+
+        console.error(`erro na conexao SQL SERVER`, error);
+
+    }
+};
+
+(async () => {
+    const pool = await getConnection();
+
+    if (pool) {
+        console.log("Conexão com o DB estabelicida com sucesso!");
+    }
+})();
+
+module.exports = { sql, getConnection }
 
 
-module.exports = {sql,getConnection}   
 
 
-// (async () => {
-//     const pool = await getConnection();
 
-//     const result = await pool.request().query("SELECT * FROM Produtos")
 
-//     console.log(result.recordset);
-// })()
-
-   
- 
-    

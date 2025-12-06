@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
+require('dotenv').config(); 
+
 const {produtoRoutes} = require("./src/routes/produtoRoutes");
 const {clienteRoutes} = require("./src/routes/clienteRoutes");
-const PORT = 8081;
+const PORT = process.env.PORT;
 
 app.use(express.json());// configurando o midleway para aceitar o json
 app.use('/', produtoRoutes);
