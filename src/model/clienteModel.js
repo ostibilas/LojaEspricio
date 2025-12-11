@@ -1,4 +1,5 @@
 const { sql, getConnection } = require("../config/db");
+const { pool } = require("mssql");
 
 const clienteModel = {
     /**
@@ -32,24 +33,26 @@ const clienteModel = {
         }
 
     },
-    buscarEmailOrCPF: async() =>{
+    buscarEmailOrCPF: async (cpfCliente,emailCliente) => {
 
-           try {
+        try {
 
             const pool = await getConnection();
+            
             const querySQL = 'SELECT * FROM Clientes WHERE cpfCliente = @cpfCliente OR emailCliente = @emailCliente';
-             const result = await pool.request()
+            const result = await pool
+                .request()
                 .input("cpfCliente", sql.Char(11), cpfCliente)
-                .input("emailCliente", sql.Char(200), emailCliente)
+                .input("emailCliente", sql.VarChar(200), emailCliente)
                 .query(querySQL);
-           
+
 
 
             return result.recordset;
 
         } catch (error) {
 
-            console.error("Erro ao buscar Clientes via CPF ou email:", error);
+            console.error("Erro ao buscar Clientes (Model)", error);
             throw error // reverberar o erro para funcao que 0 chamar.
 
 
@@ -85,7 +88,7 @@ const clienteModel = {
      * @returns {Promise<void>} não retorna nada, apenas executa a inserção
      * @throws Mostra no console e propaga o erro
      */
-    inserirCliente: async (nomeCliente, cpfCliente,emailCliente,senhaCliente) => {
+    inserirCliente: async (nomeCliente, cpfCliente, emailCliente, senhaCliente) => {
         try {
             const pool = await getConnection();
             const querySQL = `
@@ -125,7 +128,7 @@ const clienteModel = {
         }
 
     },
-    atualizarCliente: async (idCliente,nomeCliente,cpfCliente) =>{ 
+    atualizarCliente: async (idCliente, nomeCliente, cpfCliente) => {
         try {
             const pool = await getConnection();
             const querySQL = `UPDATE Clientes 
@@ -134,16 +137,16 @@ const clienteModel = {
                               WHERE idCliente = @idCliente
                             `
             await pool.request()
-            .input("idCliente", sql.UniqueIdentifier, idCliente)
-            .input("nomeCliente", sql.VarChar(100), nomeCliente)
-            .input("cpfCliente", sql.Char(11), cpfCliente)
-            .query(querySQL);
-            
+                .input("idCliente", sql.UniqueIdentifier, idCliente)
+                .input("nomeCliente", sql.VarChar(100), nomeCliente)
+                .input("cpfCliente", sql.Char(11), cpfCliente)
+                .query(querySQL);
+
         } catch (error) {
-            
-            console.error("Erro ao Atualizar Cliente MODEL:",error);
+
+            console.error("Erro ao Atualizar Cliente MODEL:", error);
             throw error // reverberar o erro para funcao que 0 chamar.
-            
+
         }
 
     },
