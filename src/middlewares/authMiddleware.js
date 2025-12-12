@@ -1,16 +1,17 @@
 const jwt = require ("jsonwebtoken");
+
 const verify = {
     cliente: async (req,res,next) => {
         
         try {
-            const {token} = req.cookies;
+           //const {token} = req.cookies;
 
-            const decoded = jwt.verify(token,process.env.JWP_SECRET);
+          //  const decoded = jwt.verify(token,process.env.JWP_SECRET);
             
-            if(decoded.tipoUsuario || decoded.tipoUsuario !=="cliente"){
-                return res.status(403).json({error:"Acesso permitido somente para Clientes"});
+           // if(decoded.tipoUsuario || decoded.tipoUsuario !=="cliente"){
+              //  return res.status(403).json({error:"Acesso permitido somente para Clientes"});
 
-            }
+          //  }
 
             next();
 
