@@ -9,6 +9,7 @@ const {clienteRoutes} = require("./src/routes/clienteRoutes");
 
 
 
+
 const PORT = process.env.PORT;
 
 app.use(express.json());// configurando o midleway para aceitar o json
