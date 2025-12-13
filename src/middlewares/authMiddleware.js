@@ -5,7 +5,7 @@ const verify = {
         
         try {
             console.log(req);
-           const {token} = req.cookies;
+           const {token} = req.cookie;
 
 
           const decoded = jwt.verify(token,process.env.JWP_SECRET);
