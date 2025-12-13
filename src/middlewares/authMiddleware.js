@@ -9,7 +9,7 @@ const verify = {
 
 
             const decoded = jwt.verify(token, process.env.JWP_SECRET);
-            console.log(decoded);
+            console.log(decoded.tipoUsuario !== "cliente");
 
             if (decoded.tipoUsuario || decoded.tipoUsuario !== "cliente") {
                 return res.status(403).json({ error: "Acesso permitido somente para Clientes" });
