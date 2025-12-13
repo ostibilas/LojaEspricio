@@ -4,7 +4,7 @@ const verify = {
     cliente: async (req,res,next) => {
         
         try {
-            console.log(req);
+
            const {token} = req.cookies;
 
 
@@ -18,7 +18,6 @@ const verify = {
             next();
 
         } catch (error) {
-            console.log(error);
             return res.status(401).json({error:"Token invalido ou expirado"});
 
             
