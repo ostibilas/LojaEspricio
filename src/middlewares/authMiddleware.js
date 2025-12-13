@@ -4,7 +4,9 @@ const verify = {
     cliente: async (req,res,next) => {
         
         try {
+            console.log(req.cookies);
            const {token} = req.cookies;
+
 
           const decoded = jwt.verify(token,process.env.JWP_SECRET);
             
@@ -16,6 +18,7 @@ const verify = {
             next();
 
         } catch (error) {
+            console.log(error);
             return res.status(401).json({error:"Token invalido ou expirado"});
 
             
