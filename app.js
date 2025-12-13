@@ -12,7 +12,7 @@ const PORT = process.env.PORT;
 app.use(express.json());// configurando o midleway para aceitar o json
 app.use('/', produtoRoutes);
 app.use('/', clienteRoutes);
-app.use(cookieParser())
+app.use(cookieParser());
 
 
 app.listen(PORT, () => {

@@ -4,7 +4,7 @@ const verify = {
     cliente: async (req,res,next) => {
         
         try {
-            console.log(req.cookies);
+            console.log(req);
            const {token} = req.cookies;
 
 
